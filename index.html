@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Estrutura</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Gerador de Estrutura de Vãos</h1>
+    <div>
+      <label>Número de Vãos:</label>
+      <input type="number" id="numVaos" min="1" value="1" />
+    </div>
+
+    <div>
+      <label>Tipo de Apoio Inicial:</label>
+      <select id="apoioInicio">
+        <option value="inicio_fixo">Fixo</option>
+        <option value="inicio_engaste">Engaste</option>
+        <option value="inicio_semapoio">Sem apoio</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Tipo de Apoio Final:</label>
+      <select id="apoioFinal">
+        <option value="final_fixo">Fixo</option>
+        <option value="final_engaste">Engaste</option>
+        <option value="final_semapoio">Sem apoio</option>
+      </select>
+    </div>
+
+    <button id="gerarEstrutura">Gerar Estrutura</button>
+
+    <div id="estrutura"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
