@@ -4,10 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gerador de Estrutura</title>
-    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      img {
+        width: auto;
+        height: 150px;
+      }
+    </style>
   </head>
   <body>
     <h1>Gerador de Estrutura de Vãos</h1>
+
     <div>
       <label>Número de Vãos:</label>
       <input type="number" id="numVaos" min="1" value="1" />
@@ -16,18 +26,18 @@
     <div>
       <label>Tipo de Apoio Inicial:</label>
       <select id="apoioInicio">
-        <option value="inicio_fixo">Fixo</option>
-        <option value="inicio_engaste">Engaste</option>
-        <option value="inicio_semapoio">Sem apoio</option>
+        <option value="fixo">Fixo</option>
+        <option value="engaste">Engaste</option>
+        <option value="semapoio">Sem apoio</option>
       </select>
     </div>
 
     <div>
       <label>Tipo de Apoio Final:</label>
       <select id="apoioFinal">
-        <option value="final_fixo">Fixo</option>
-        <option value="final_engaste">Engaste</option>
-        <option value="final_semapoio">Sem apoio</option>
+        <option value="fixo">Fixo</option>
+        <option value="engaste">Engaste</option>
+        <option value="semapoio">Sem apoio</option>
       </select>
     </div>
 
@@ -35,6 +45,59 @@
 
     <div id="estrutura"></div>
 
-    <script src="script.js"></script>
+    <script>
+      document
+        .getElementById("gerarEstrutura")
+        .addEventListener("click", () => {
+          const numVaos = parseInt(document.getElementById("numVaos").value);
+          const apoioInicio = document.getElementById("apoioInicio").value;
+          const apoioFinal = document.getElementById("apoioFinal").value;
+
+          const estruturaDiv = document.getElementById("estrutura");
+          estruturaDiv.innerHTML = ""; // Limpa a estrutura anterior
+
+          // Validação das combinações possíveis
+          const combinacoesValidas = [
+            "fixo_fixo",
+            "fixo_engaste",
+            "engaste_engaste",
+            "engaste_fixo",
+            "semapoio_engaste",
+            "engaste_semapoio",
+          ];
+
+          if (numVaos === 1) {
+            const nomeImagem = `viga_${apoioInicio}_${apoioFinal}`;
+            if (combinacoesValidas.includes(`${apoioInicio}_${apoioFinal}`)) {
+              const imgViga = document.createElement("img");
+              imgViga.src = `imagens/${nomeImagem}.png`;
+              imgViga.alt = `Estrutura: ${nomeImagem}`;
+              estruturaDiv.appendChild(imgViga);
+            } else {
+              alert("Combinação inválida para uma viga única!");
+            }
+          } else {
+            // Adiciona imagem inicial
+            const imgInicio = document.createElement("img");
+            imgInicio.src = `imagens/inicio_${apoioInicio}.png`;
+            imgInicio.alt = "Apoio Inicial";
+            estruturaDiv.appendChild(imgInicio);
+
+            // Adiciona imagens do meio
+            for (let i = 0; i < numVaos - 1; i++) {
+              const imgMeio = document.createElement("img");
+              imgMeio.src = "imagens/meio_vao.png";
+              imgMeio.alt = "Meio do Vão";
+              estruturaDiv.appendChild(imgMeio);
+            }
+
+            // Adiciona imagem final
+            const imgFinal = document.createElement("img");
+            imgFinal.src = `imagens/final_${apoioFinal}.png`;
+            imgFinal.alt = "Apoio Final";
+            estruturaDiv.appendChild(imgFinal);
+          }
+        });
+    </script>
   </body>
 </html>
